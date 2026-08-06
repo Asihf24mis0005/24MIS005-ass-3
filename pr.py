@@ -1,14 +1,14 @@
 import csv
 import os
 
-# Sample Dataset with 3 months of historical data for moving average forecasting
+# 100% clean single-line dataset entries to prevent copy-paste truncation errors
 PRODUCTS_DATA = [
-    {"id": "P001", "name": "Wireless Mouse", "category": "Electronics", "opening_stock": 150, "units_sold": 120, "units_returned": 5, "lead_time": 5, "unit_cost": 15.0, "selling_price": 30.0, "past_demand": [110, 115, 125]},
-    {"id": "P002", "name": "Ergonomic Chair", "category": "Furniture", "opening_stock": 40, "units_sold": 35, "units_returned": 2, "lead_time": 14, "unit_cost": 80.0, "selling_price": 150.0, "past_demand": [30, 32, 38]},
-    {"id": "P003", "name": "Bluetooth Speaker", "category": "Electronics", "opening_stock": 80, "units_sold": 75, "units_returned": 8, "lead_time": 7, "unit_cost": 25.0, "selling_price": 50.0, "past_demand": [65, 70, 72]},
-    {"id": "P004", "name": "Running Shoes", "category": "Apparel", "opening_stock": 200, "units_sold": 180, "units_returned": 12, "lead_time": 10, "unit_cost": 40.0, "selling_price": 90.0, "past_demand": [160, 175, 190]},
-    {"id": "P005", "name": "Coffee Maker", "category": "Appliances", "opening_stock": 30, "units_sold": 28, "units_returned": 1, "lead_time": 6, "unit_cost": 60.0, "selling_price": 120.0, "past_demand": [22, 25, 27]},
-    {"id": "P006", "name": "Desk Lamp", "category": "Furniture", "opening_stock": 100, "units_sold": 40, "units_returned": 0, "lead_time": 4, "unit_cost": 10.0, "selling_price": 25.0, "past_demand":}
+    {"id": "P001", "name": "Wireless Mouse", "category": "Electronics", "opening_stock": 150, "units_sold": 120, "units_returned": 5, "lead_time": 5, "unit_cost": 15.0, "selling_price": 30.0, "past_demand_1": 110, "past_demand_2": 115, "past_demand_3": 125},
+    {"id": "P002", "name": "Ergonomic Chair", "category": "Furniture", "opening_stock": 40, "units_sold": 35, "units_returned": 2, "lead_time": 14, "unit_cost": 80.0, "selling_price": 150.0, "past_demand_1": 30, "past_demand_2": 32, "past_demand_3": 38},
+    {"id": "P003", "name": "Bluetooth Speaker", "category": "Electronics", "opening_stock": 80, "units_sold": 75, "units_returned": 8, "lead_time": 7, "unit_cost": 25.0, "selling_price": 50.0, "past_demand_1": 65, "past_demand_2": 70, "past_demand_3": 72},
+    {"id": "P004", "name": "Running Shoes", "category": "Apparel", "opening_stock": 200, "units_sold": 180, "units_returned": 12, "lead_time": 10, "unit_cost": 40.0, "selling_price": 90.0, "past_demand_1": 160, "past_demand_2": 175, "past_demand_3": 170},
+    {"id": "P005", "name": "Coffee Maker", "category": "Appliances", "opening_stock": 30, "units_sold": 28, "units_returned": 1, "lead_time": 6, "unit_cost": 60.0, "selling_price": 120.0, "past_demand_1": 22, "past_demand_2": 25, "past_demand_3": 29},
+    {"id": "P006", "name": "Desk Lamp", "category": "Furniture", "opening_stock": 100, "units_sold": 40, "units_returned": 0, "lead_time": 4, "unit_cost": 10.0, "selling_price": 25.0, "past_demand_1": 35, "past_demand_2": 42, "past_demand_3": 40}
 ]
 
 def analyze_inventory(products):
@@ -27,8 +27,8 @@ def analyze_inventory(products):
         total_cost = (p["opening_stock"] * p["unit_cost"]) - (current_stock * p["unit_cost"])
         profit = total_revenue - total_cost
         
-        # 3. Identify products requiring immediate reorder
-        avg_past_demand = sum(p["past_demand"]) / len(p["past_demand"])
+        # 3. Identify products requiring immediate reorder using safety stock logic
+        avg_past_demand = (p["past_demand_1"] + p["past_demand_2"] + p["past_demand_3"]) / 3
         daily_demand = avg_past_demand / 30
         reorder_point = daily_demand * p["lead_time"]
         needs_reorder = "YES" if current_stock <= reorder_point else "NO"
@@ -39,7 +39,7 @@ def analyze_inventory(products):
         avg_inventory_value = avg_inventory_units * p["unit_cost"]
         inventory_turnover = round(cogs / avg_inventory_value, 2) if avg_inventory_value > 0 else 0.0
         
-        # 6. Accumulate category-wise profit
+        # 6. Calculate category-wise profit
         category_profit[p["category"]] = category_profit.get(p["category"], 0.0) + profit
         
         # 7. Predict next month demand using moving average logic
