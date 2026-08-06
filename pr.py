@@ -1,13 +1,13 @@
 import csv
 import os
 
-# Sample Dataset with 3 months of historical data for moving average forecasting
+# Sample Dataset with mock 3-month demand values inside the brackets []
 PRODUCTS_DATA = [
-    {"id": "P001", "name": "Wireless Mouse", "category": "Electronics", "opening_stock": 150, "units_sold": 120, "units_returned": 5, "lead_time": 5, "unit_cost": 15.0, "selling_price": 30.0, "past_demand": [110, 115, 125]},
-    {"id": "P002", "name": "Ergonomic Chair", "category": "Furniture", "opening_stock": 40, "units_sold": 35, "units_returned": 2, "lead_time": 14, "unit_cost": 80.0, "selling_price": 150.0, "past_demand": [30, 32, 38]},
-    {"id": "P003", "name": "Bluetooth Speaker", "category": "Electronics", "opening_stock": 80, "units_sold": 75, "units_returned": 8, "lead_time": 7, "unit_cost": 25.0, "selling_price": 50.0, "past_demand": [70, 68, 72]},
-    {"id": "P004", "name": "Running Shoes", "category": "Apparel", "opening_stock": 200, "units_sold": 180, "units_returned": 12, "lead_time": 10, "unit_cost": 40.0, "selling_price": 90.0, "past_demand": [160, 175, 185]},
-    {"id": "P005", "name": "Coffee Maker", "category": "Appliances", "opening_stock": 30, "units_sold": 28, "units_returned": 1, "lead_time": 6, "unit_cost": 60.0, "selling_price": 120.0, "past_demand": [25, 27, 29]},
+    {"id": "P001", "name": "Wireless Mouse", "category": "Electronics", "opening_stock": 150, "units_sold": 120, "units_returned": 5, "lead_time": 5, "unit_cost": 15.0, "selling_price": 30.0, "past_demand": [110, 130, 125]},
+    {"id": "P002", "name": "Ergonomic Chair", "category": "Furniture", "opening_stock": 40, "units_sold": 35, "units_returned": 2, "lead_time": 14, "unit_cost": 80.0, "selling_price": 150.0, "past_demand": [30, 42, 38]},
+    {"id": "P003", "name": "Bluetooth Speaker", "category": "Electronics", "opening_stock": 80, "units_sold": 75, "units_returned": 8, "lead_time": 7, "unit_cost": 25.0, "selling_price": 50.0, "past_demand": [70, 85, 72]},
+    {"id": "P004", "name": "Running Shoes", "category": "Apparel", "opening_stock": 200, "units_sold": 180, "units_returned": 12, "lead_time": 10, "unit_cost": 40.0, "selling_price": 90.0, "past_demand": [160, 190, 175]},
+    {"id": "P005", "name": "Coffee Maker", "category": "Appliances", "opening_stock": 30, "units_sold": 28, "units_returned": 1, "lead_time": 6, "unit_cost": 60.0, "selling_price": 120.0, "past_demand": [25, 30, 27]},
     {"id": "P006", "name": "Desk Lamp", "category": "Furniture", "opening_stock": 100, "units_sold": 40, "units_returned": 0, "lead_time": 4, "unit_cost": 10.0, "selling_price": 25.0, "past_demand":}
 ]
 
